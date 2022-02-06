@@ -3,44 +3,83 @@
 pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
 
+contract CampaignFactory {
+    address[] deployedCampaigns;
+
+    constructor(uint minimumContribution) {
+        address newCampaign = address(new Campaign(minimumContribution, msg.sender));
+        deployedCampaigns.push(newCampaign);
+    }
+
+    function getDeployedCampaigns() public view returns(address[] memory) {
+        return deployedCampaigns;
+    }
+} 
+
 contract Campaign {
     struct Request {
         string purpose;
         uint requiredAmount;
         address receiver;
+        mapping(address => bool) votedCheck;
+        uint approvedVotes;
         bool isComplete;
     }
 
     address public campaignManager;
     uint public minimumContribution;
-    address[] public contributors;
+    mapping(address=>bool) public contributors;
+    uint private currentIndex;
     Request[] public requests;
+    uint totalContributors;
 
     modifier restricted() {
         require(msg.sender == campaignManager, "Access denied!");
         _;
     }
 
-    constructor(uint minimumValue) {
-        campaignManager = msg.sender;
+    constructor(uint minimumValue, address creator) {
+        campaignManager = creator;
         minimumContribution = minimumValue;
         console.log("Manager is: ", campaignManager);
         console.log("Minimum contribution is: ", minimumContribution);
     }
 
     function contribute() public payable {
-        require(msg.value > minimumContribution, "Insufficient funds to satisy minimum contribution amount!!");
-        contributors.push(msg.sender);
+        require(msg.value > minimumContribution, "Insufficient funds to satisy minimum contribution amount!");
+        contributors[msg.sender] = true;
+        totalContributors++;
     } 
 
     function createRequest(string memory purpose, uint requiredAmount, address receiver) public restricted {
-        Request memory newRequest = Request({
-            purpose: purpose,
-            requiredAmount: requiredAmount,
-            receiver: receiver,
-            isComplete: false
-        });
+        Request storage newRequest = requests[currentIndex];
+        newRequest.purpose = purpose;
+        newRequest.requiredAmount = requiredAmount;
+        newRequest.receiver = receiver;
+        newRequest.approvedVotes = 0;
+        newRequest.isComplete = false;
+        currentIndex++;
+    }
 
-        requests.push(newRequest);
+    function approveRequest(uint requestIndex) public {
+        Request storage currentRequest = requests[requestIndex];
+
+        require(contributors[msg.sender], "Become a contributor first!");
+        require(!currentRequest.votedCheck[msg.sender], "You only get to vote once!");
+        require(!currentRequest.isComplete, "Request already processed!");
+
+        currentRequest.votedCheck[msg.sender] = true;
+        currentRequest.approvedVotes++;
+    }
+
+    function finalizeRequest(uint requestIndex) public restricted {
+        Request storage currentRequest = requests[requestIndex];
+
+        require(!currentRequest.isComplete, "Request already processed!");
+        require(currentRequest.approvedVotes > totalContributors/2, "Request not approved yet!");
+        require(address(this).balance > currentRequest.requiredAmount, "Insufficient funds to process payment");
+
+        payable(currentRequest.receiver).transfer(currentRequest.requiredAmount);
+        currentRequest.isComplete = true;
     }
 }
