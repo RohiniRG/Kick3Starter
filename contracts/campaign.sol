@@ -41,8 +41,6 @@ contract Campaign {
     constructor(uint minimumValue, address creator) {
         campaignManager = creator;
         minimumContribution = minimumValue;
-        console.log("Manager is: ", campaignManager);
-        console.log("Minimum contribution is: ", minimumContribution);
     }
 
     function contribute() public payable {
