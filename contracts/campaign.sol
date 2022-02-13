@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 contract CampaignFactory {
     address[] deployedCampaigns;
 
-    constructor(uint minimumContribution) {
+    function createCampaign(uint minimumContribution) public {
         address newCampaign = address(new Campaign(minimumContribution, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
