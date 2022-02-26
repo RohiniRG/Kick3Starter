@@ -26,11 +26,11 @@ contract Campaign {
         bool isComplete;
     }
 
+    mapping(uint=>Request) public requests;
     address public campaignManager;
     uint public minimumContribution;
     mapping(address=>bool) public contributors;
     uint private currentIndex;
-    Request[] public requests;
     uint totalContributors;
 
     modifier restricted() {

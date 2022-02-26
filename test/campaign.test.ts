@@ -55,9 +55,10 @@ describe("Campaign", ()=> {
 
     it("Allows manager to make a payment request", async () => {
         const contributorAddress: string = await fetchedAccounts[1].getAddress();
-        const tx = await campaignContract.createRequest("Buy wires", 100, contributorAddress, {gasLimit: 2000000});
+        const tx = await campaignContract.createRequest("Buy wires", "100", contributorAddress, {gasLimit: 2000000});
         await tx.wait();
-        const request = await campaignContract.requests(0);
+        
+        const request = await campaignContract.connect(owner).requests(0);
         assert.equal("Buy wires", request.purpose);
     })
 })
