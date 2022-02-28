@@ -34,6 +34,7 @@ contract Campaign {
     uint totalContributors;
 
     modifier restricted() {
+        // Creating a restrictor for campaign manager specific functions
         require(msg.sender == campaignManager, "Access denied!");
         _;
     }
@@ -44,7 +45,7 @@ contract Campaign {
     }
 
     function contribute() public payable {
-        require(msg.value > minimumContribution, "Insufficient funds to satisy minimum contribution amount!");
+        require(msg.value >= minimumContribution, "Insufficient funds to satisy minimum contribution amount!");
         contributors[msg.sender] = true;
         totalContributors++;
     } 
