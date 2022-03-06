@@ -6,9 +6,9 @@ import web3Provider from '../scripts/web3_provider';
 const campaignContractAddress: string = '0x0c7e760E2095B4d1C40012Df2eB26BCD371663Dc';
 
 class CampaignList extends Component {
-    componentDidMount(): void {
+    async componentDidMount(): Promise<void> {
         const contract: Contract = new ethers.Contract(campaignContractAddress, CampaignFactory.abi, web3Provider);
-        
+        const campaigns: any[] = contract.getDeployedCampaigns();
     }
 
     render(): JSX.Element {
