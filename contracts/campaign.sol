@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
 
 contract CampaignFactory {
-    address[] deployedCampaigns;
+    address[] public deployedCampaigns;
 
     function createCampaign(uint minimumContribution) public {
         address newCampaign = address(new Campaign(minimumContribution, msg.sender));

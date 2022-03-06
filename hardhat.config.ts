@@ -1,7 +1,5 @@
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
-const dotenv = require('dotenv');
-dotenv.config();
 
 module.exports = {
   solidity: "0.7.3",
