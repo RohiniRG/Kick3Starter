@@ -5,11 +5,12 @@ import web3Provider from '../scripts/web3_provider';
 
 const campaignContractAddress: string = '0x95ee4309Bf90F0eb923c6a17992c1D20fd55e346';
 
-class CampaignList extends Component {
-    async componentDidMount(): Promise<void> {
+class CampaignList extends Component <any> {
+    static async getInitialProps(): Promise<any> {
         const contract: Contract = new ethers.Contract(campaignContractAddress, CampaignFactory.abi, web3Provider);
-        const campaigns: any[] = contract.getDeployedCampaigns();
+        const campaigns: any[] = await contract.getDeployedCampaigns();
         console.log(campaigns);
+        return { campaigns };
     }
 
     render(): JSX.Element {
@@ -18,9 +19,11 @@ class CampaignList extends Component {
                 <h1>
                     Here are the list of campaigns
                 </h1>
-                <h5>
-                    Ooops!
-                </h5>
+                <ul>
+                    <li>
+                        {this.props.campaigns[0]}
+                    </li>
+                </ul>
             </div>
         )
     }
