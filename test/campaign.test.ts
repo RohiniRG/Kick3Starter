@@ -1,6 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { assert } from "chai";
-import { Contract, ContractFactory, Signer, Transaction } from "ethers";
+import { Contract, ContractFactory, Signer,} from "ethers";
 import { ethers } from "hardhat";
 
 let owner: Signer;
