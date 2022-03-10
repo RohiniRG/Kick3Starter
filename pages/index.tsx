@@ -4,6 +4,7 @@ import CampaignFactory from '../artifacts/contracts/campaign.sol/CampaignFactory
 import web3Provider from '../scripts/web3_provider';
 import { Header, Grid, Image, Button, Icon, Popup, Menu, Message, Form, Dropdown, } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
+import Layout from '../components/layout';
 
 const campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
 
@@ -74,53 +75,7 @@ class CampaignList extends Component<any> {
 
     render(): JSX.Element {
         return (
-            <>
-                <Grid className='computer' padded>
-                    <Grid.Column>
-                        <Menu inverted borderless fluid fixed="top">
-                            <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
-                            <Menu.Menu position="right">
-                                <Menu.Item>
-                                    <Button positive size='large'>
-                                        <p style={{ 'fontSize': '17px' }}>
-                                            Create Campaign
-                                        </p>
-                                    </Button>
-                                </Menu.Item>
-                                <Menu.Item>
-                                    <Button color='blue' size='large'>
-                                        <p style={{ 'fontSize': '17px' }}>
-                                            Contribute
-                                        </p>
-                                    </Button>
-                                </Menu.Item>
-                            </Menu.Menu>
-                        </Menu>
-                    </Grid.Column>
-                </Grid>
-                <Grid className='mobile only' padded>
-                    <Grid.Column>
-                        <Menu inverted borderless fluid fixed="top">
-                            <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
-                            <Menu.Menu position='right'>
-                                <Dropdown item simple icon='content'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item>
-                                            <p style={{ 'fontSize': '17px' }}>
-                                                Contribute
-                                            </p>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <p style={{ 'fontSize': '17px' }}>
-                                                Create Campaign
-                                            </p>
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Menu.Menu>
-                        </Menu>
-                    </Grid.Column>
-                </Grid>
+            <Layout>
                 <Grid>
                     <Message size="massive">
                         <br />
@@ -149,7 +104,7 @@ class CampaignList extends Component<any> {
                 <Grid padded columns={3} centered={true}>
                     {this.campaignsCardGroup()}
                 </Grid>
-            </>
+            </Layout>
         )
     }
 }
