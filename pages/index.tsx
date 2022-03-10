@@ -77,7 +77,7 @@ class CampaignList extends Component<any> {
         return (
             <Layout>
                 <Grid>
-                    <Message size="massive">
+                    <Message size="massive" className='message'>
                         <br />
                         <Header textAlign='center' size="huge" as="h1">
                             Let's decentralise creativity!
@@ -98,11 +98,15 @@ class CampaignList extends Component<any> {
                         </Grid>
                     </Message>
                 </Grid>
-                <h1 style={{ 'fontSize': 35 }}>
-                    Here are the list of campaigns
-                </h1>
-                <Grid padded columns={3} centered={true}>
-                    {this.campaignsCardGroup()}
+                <Grid padded>
+                    <Grid.Column>
+                        <h1 style={{ 'fontSize': 35 }}>
+                            Here are the list of campaigns
+                        </h1>
+                        <Grid padded columns={3} centered={true}>
+                            {this.campaignsCardGroup()}
+                        </Grid>
+                    </Grid.Column>
                 </Grid>
             </Layout>
         )
