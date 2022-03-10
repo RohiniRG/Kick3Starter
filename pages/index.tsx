@@ -143,9 +143,6 @@ class CampaignList extends Component<any> {
                         </Grid>
                     </Message>
                 </Grid>
-                {/* <p style={{ 'textAlign': 'center', 'fontSize':'h1' }}>
-                    Come, let's change your ideas into reality!
-                </p> */}
                 <h1 style={{ 'fontSize': 35 }}>
                     Here are the list of campaigns
                 </h1>
