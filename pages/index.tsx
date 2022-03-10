@@ -10,10 +10,6 @@ import 'semantic-ui-css/semantic.min.css';
 const campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
 
 class CampaignList extends Component<any> {
-    state = {
-        copied: false,
-    }
-
     static async getInitialProps(): Promise<any> {
         const contract: Contract = new ethers.Contract(campaignContractAddress, CampaignFactory.abi, web3Provider);
         const campaigns: any[] = await contract.getDeployedCampaigns();
@@ -26,10 +22,6 @@ class CampaignList extends Component<any> {
     }
 
     copyToClipboard = (address) => {
-        this.setState({ copied: true })
-        setTimeout(() => {
-            this.setState({ copied: false })
-        }, 1000);
         return navigator.clipboard.writeText(address);
     }
 
@@ -68,7 +60,30 @@ class CampaignList extends Component<any> {
     render(): JSX.Element {
         return (
             <>
-                <Grid padded>
+                <Grid className='computer' padded>
+                    <Grid.Column>
+                        <Menu inverted borderless fluid fixed="top">
+                            <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
+                            <Menu.Menu position="right">
+                                <Menu.Item>
+                                    <Button positive size='large'>
+                                        <p style={{ 'fontSize': '17px' }}>
+                                            Create Campaign
+                                        </p>
+                                    </Button>
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <Button color='blue' size='large'>
+                                        <p style={{ 'fontSize': '17px' }}>
+                                            Contribute
+                                        </p>
+                                    </Button>
+                                </Menu.Item>
+                            </Menu.Menu>
+                        </Menu>
+                    </Grid.Column>
+                </Grid>
+                <Grid className='mobile' padded>
                     <Grid.Column>
                         <Menu inverted borderless fluid fixed="top">
                             <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
@@ -100,9 +115,10 @@ class CampaignList extends Component<any> {
                         <p style={{ 'textAlign': 'center' }}>
                             Kick3Starter is a decentralized campaign platform that allows creators to help creators in bringing their projects to life.
                             Creators will have the opportunity to work with full control over their projects and with people who are constantly willing to support them.
-                            Come, let's make our ideas into reality!
                         </p>
-                        <br />
+                        <p style={{ 'textAlign': 'center' }}>
+                            Come, let's make our ideas into reality!    
+                        </p>
                         <Grid padded centered>
                             <Button positive size='huge'>
                                 <p style={{ 'fontSize': '20px' }}>
@@ -113,7 +129,6 @@ class CampaignList extends Component<any> {
 
                     </Message>
                 </Grid>
-
                 <h1>
                     Here are the list of campaigns
                 </h1>
