@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import { Contract, ethers } from 'ethers';
-import { TransactionResponse, Provider } from "@ethersproject/abstract-provider";
 import CampaignFactory from '../artifacts/contracts/campaign.sol/CampaignFactory.json'
 import web3Provider from '../scripts/web3_provider';
-import { Header, Grid, Image, Button, Icon, Popup, Container, Menu, Form, Message, GridColumn } from 'semantic-ui-react'
+import { Header, Grid, Image, Button, Icon, Popup, Menu, Message, Form, Dropdown, } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
-// import { TransactionResponse } from '@ethersproject/providers';
 
 const campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
 
 class CampaignList extends Component<any> {
+    state = {
+        dropdownMenuStyle: {
+            display: "none"
+        }
+    };
+
+    handleToggleDropdownMenu = () => {
+        let newState = Object.assign({}, this.state);
+        if (newState.dropdownMenuStyle.display === "none") {
+            newState.dropdownMenuStyle = { display: "flex" };
+        } else {
+            newState.dropdownMenuStyle = { display: "none" };
+        }
+
+        this.setState(newState);
+    };
+
     static async getInitialProps(): Promise<any> {
         const contract: Contract = new ethers.Contract(campaignContractAddress, CampaignFactory.abi, web3Provider);
         const campaigns: any[] = await contract.getDeployedCampaigns();
@@ -83,31 +98,31 @@ class CampaignList extends Component<any> {
                         </Menu>
                     </Grid.Column>
                 </Grid>
-                <Grid className='mobile' padded>
+                <Grid className='mobile only' padded>
                     <Grid.Column>
                         <Menu inverted borderless fluid fixed="top">
                             <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
-                            <Menu.Menu position="right">
-                                <Menu.Item>
-                                    <Button positive size='large'>
-                                        <p style={{ 'fontSize': '17px' }}>
-                                            Create Campaign
-                                        </p>
-                                    </Button>
-                                </Menu.Item>
-                                <Menu.Item>
-                                    <Button color='blue' size='large'>
-                                        <p style={{ 'fontSize': '17px' }}>
-                                            Contribute
-                                        </p>
-                                    </Button>
-                                </Menu.Item>
+                            <Menu.Menu position='right'>
+                                <Dropdown item simple icon='content'>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item>
+                                            <p style={{ 'fontSize': '17px' }}>
+                                                Contribute
+                                            </p>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <p style={{ 'fontSize': '17px' }}>
+                                                Create Campaign
+                                            </p>
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                             </Menu.Menu>
                         </Menu>
                     </Grid.Column>
                 </Grid>
                 <Grid>
-                    <Message size="massive" floating>
+                    <Message size="massive">
                         <br />
                         <Header textAlign='center' size="huge" as="h1">
                             Let's decentralise creativity!
@@ -117,7 +132,7 @@ class CampaignList extends Component<any> {
                             Creators will have the opportunity to work with full control over their projects and with people who are constantly willing to support them.
                         </p>
                         <p style={{ 'textAlign': 'center' }}>
-                            Come, let's make our ideas into reality!    
+                            Come, let's change your ideas into reality!
                         </p>
                         <Grid padded centered>
                             <Button positive size='huge'>
@@ -126,10 +141,12 @@ class CampaignList extends Component<any> {
                                 </p>
                             </Button>
                         </Grid>
-
                     </Message>
                 </Grid>
-                <h1>
+                {/* <p style={{ 'textAlign': 'center', 'fontSize':'h1' }}>
+                    Come, let's change your ideas into reality!
+                </p> */}
+                <h1 style={{ 'fontSize': 35 }}>
                     Here are the list of campaigns
                 </h1>
                 <Grid padded columns={3} centered={true}>
