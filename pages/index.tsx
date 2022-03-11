@@ -77,7 +77,7 @@ class CampaignList extends Component<any> {
         return (
             <Layout>
                 <Grid>
-                    <Message size="massive" className='message'>
+                    <Message size="massive">
                         <br />
                         <Header textAlign='center' size="huge" as="h1">
                             Let's decentralise creativity!
