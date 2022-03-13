@@ -6,18 +6,22 @@
     padding-bottom: 2rem;
 }
 
-/* .wrapper {
-    height: calc(100% - 60px);
+.html {
+    height: 100%;
     position: relative;
-}  */
-/* .body {
-    padding-bottom: 60px;
-} */
+}
+
+.wrapper {
+    padding-bottom: 150px;
+    min-height: 100vh; 
+    overflow: hidden;
+    position: relative;
+} 
+
 
 .footer {
     position:absolute;
     left:0;
-    padding: 1rem;
-    margin-top: 16vh;
+    bottom: 0;
     right:0;
 }
