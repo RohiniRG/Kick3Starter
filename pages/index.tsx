@@ -76,41 +76,38 @@ class CampaignList extends Component<any> {
     render(): JSX.Element {
         return (
             <Layout>
-                <div className='body'>
-                    <Grid >
-                        <Message size="massive">
-                            <br />
-                            <Header textAlign='center' size="huge" as="h1">
-                                Let's decentralise creativity!
-                            </Header>
-                            <p style={{ 'textAlign': 'center' }}>
-                                Kick3Starter is a decentralized campaign platform that allows creators to help creators in bringing their projects to life.
-                                Creators will have the opportunity to work with full control over their projects and with people who are constantly willing to support them.
-                            </p>
-                            <p style={{ 'textAlign': 'center' }}>
-                                Come, let's change your ideas into reality!
-                            </p>
-                            <Grid padded centered>
-                                <Button positive size='huge'>
-                                    <p style={{ 'fontSize': '20px' }}>
-                                        Create Campaign
-                                    </p>
-                                </Button>
-                            </Grid>
-                        </Message>
-                    </Grid>
-                    <Grid padded>
-                        <Grid.Column>
-                            <h1 style={{ 'fontSize': 35 }}>
-                                Here are the list of campaigns
-                            </h1>
-                            <Grid padded columns={3} centered={true}>
-                                {this.campaignsCardGroup()}
-                            </Grid>
-                        </Grid.Column>
-                    </Grid>
-                </div>
-
+                <Grid >
+                    <Message size="massive">
+                        <br />
+                        <Header textAlign='center' size="huge" as="h1">
+                            Let's decentralise creativity!
+                        </Header>
+                        <p style={{ 'textAlign': 'center' }}>
+                            Kick3Starter is a decentralized campaign platform that allows creators to help creators in bringing their projects to life.
+                            Creators will have the opportunity to work with full control over their projects and with people who are constantly willing to support them.
+                        </p>
+                        <p style={{ 'textAlign': 'center' }}>
+                            Come, let's change your ideas into reality!
+                        </p>
+                        <Grid padded centered>
+                            <Button positive size='huge'>
+                                <p style={{ 'fontSize': '20px' }}>
+                                    Create Campaign
+                                </p>
+                            </Button>
+                        </Grid>
+                    </Message>
+                </Grid>
+                <Grid padded className='body'>
+                    <Grid.Column>
+                        <h1 style={{ 'fontSize': 35 }}>
+                            Here are the list of campaigns
+                        </h1>
+                        <Grid padded columns={3} centered={true}>
+                            {this.campaignsCardGroup()}
+                        </Grid>
+                    </Grid.Column>
+                </Grid>
             </Layout>
         )
     }

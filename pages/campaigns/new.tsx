@@ -7,7 +7,6 @@ class NewCampaignForm extends Component {
     render() {
         return (
             <Layout>
-                <div className="body">
                 <Grid >
                     <Grid.Column >
                         <Message size="massive">
@@ -22,7 +21,7 @@ class NewCampaignForm extends Component {
                                 Who knew getting your ideas to life could be so easy?
                             </p>
                         </Message>
-                        <Grid padded centered >
+                        <Grid padded centered className="body">
                             <Container text>
                                 <Form>
                                     <Form.Field>
@@ -39,7 +38,6 @@ class NewCampaignForm extends Component {
                         </Grid>
                     </Grid.Column>
                 </Grid>
-                </div>
             </Layout>
         )
     }

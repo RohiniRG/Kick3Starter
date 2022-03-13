@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Divider, Grid } from "semantic-ui-react";
+import {  Divider, Grid } from "semantic-ui-react";
 
 const Footer: React.FC = () => {
     return (
