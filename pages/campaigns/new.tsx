@@ -2,13 +2,33 @@ import React, { Component } from "react";
 import 'semantic-ui-css/semantic.min.css';
 import { Button, Container, Form, Grid, Header, Message } from "semantic-ui-react";
 import Layout from "../../components/layout";
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
+import { Contract, ethers } from "ethers";
+import CampaignList from "..";
+import CampaignFactory from "../../artifacts/contracts/campaign.sol/CampaignFactory.json";
+import web3Provider from "../../scripts/web3_provider";
 
+let contract: Contract;
 class NewCampaignForm extends Component {
-    render() {
+    state = {
+        minContributionValue: '',
+    }
+
+    static async getInitialProps(context): Promise<any> {
+        contract = new ethers.Contract(CampaignList.campaignContractAddress, CampaignFactory.abi, web3Provider);
+        return { contract };
+    }
+
+    onSubmit = async (event) => {
+        event.preventDefault();
+        await contract.createCampaign(this.state.minContributionValue)
+    }
+
+    render() : JSX.Element {
         return (
             <Layout>
                 <Grid >
-                    <Grid.Column >
+                    <Grid.Column>
                         <Message size="massive">
                             <Header textAlign='center' size="huge" as="h1">
                                 Create a new campaign!
@@ -23,12 +43,17 @@ class NewCampaignForm extends Component {
                         </Message>
                         <Grid padded centered className="body">
                             <Container text>
-                                <Form>
+                                <Form onSubmit={this.onSubmit}>
                                     <Form.Field>
                                         <label style={{ 'fontSize': 25, 'padding': 10, }}>Minimum contribution amount</label>
-                                        <input style={{ 'fontSize': 20, 'padding': 10, }} placeholder='Enter amount in ETH' />
+                                        <input 
+                                            style={{ 'fontSize': 20, 'padding': 10, }} 
+                                            placeholder='Enter amount in ETH' 
+                                            value={this.state.minContributionValue}
+                                            onChange={event => this.setState({ minContributionValue: event.target.value })}
+                                        />
                                     </Form.Field>
-                                    <Button positive>
+                                    <Button positive type="submit">
                                         <p style={{ 'fontSize': '17px' }}>
                                             Create!
                                         </p>

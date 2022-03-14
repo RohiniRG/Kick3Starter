@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Contract, ethers } from 'ethers';
 import CampaignFactory from '../artifacts/contracts/campaign.sol/CampaignFactory.json'
 import web3Provider from '../scripts/web3_provider';
-import { Header, Grid, Image, Button, Icon, Popup, Menu, Message, Form, Dropdown, } from 'semantic-ui-react'
+import { Header, Grid, Image, Button, Icon, Popup, Message } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import Layout from '../components/layout';
 
-const campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
 
 class CampaignList extends Component<any> {
     state = {
@@ -14,6 +13,8 @@ class CampaignList extends Component<any> {
             display: "none"
         }
     };
+
+    static campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
 
     handleToggleDropdownMenu = () => {
         let newState = Object.assign({}, this.state);
@@ -27,7 +28,7 @@ class CampaignList extends Component<any> {
     };
 
     static async getInitialProps(): Promise<any> {
-        const contract: Contract = new ethers.Contract(campaignContractAddress, CampaignFactory.abi, web3Provider);
+        const contract: Contract = new ethers.Contract(this.campaignContractAddress, CampaignFactory.abi, web3Provider);
         const campaigns: any[] = await contract.getDeployedCampaigns();
         console.log(campaigns);
         return { campaigns };
