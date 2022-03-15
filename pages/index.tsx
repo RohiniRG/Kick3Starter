@@ -105,7 +105,7 @@ class CampaignList extends Component<any> {
                 </Grid>
                 <Grid padded className='body'>
                     <Grid.Column>
-                        <h1 style={{ 'fontSize': 35 }}>
+                        <h1 id='campaigns-view' style={{ 'fontSize': 35 }}>
                             Here are the list of campaigns
                         </h1>
                         <Grid padded columns={3} centered={true}>
