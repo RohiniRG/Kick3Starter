@@ -5,7 +5,7 @@ import web3Provider from '../scripts/web3_provider';
 import { Header, Grid, Image, Button, Icon, Popup, Message } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import Layout from '../components/layout';
-
+import Router from "next/router";
 
 class CampaignList extends Component<any> {
     state = {
@@ -91,7 +91,11 @@ class CampaignList extends Component<any> {
                             Come, let's change your ideas into reality!
                         </p>
                         <Grid padded centered>
-                            <Button positive size='huge'>
+                            <Button 
+                                positive 
+                                size='huge'
+                                onClick={() => Router.push('/campaigns/new')}
+                            >
                                 <p style={{ 'fontSize': '20px' }}>
                                     Create Campaign
                                 </p>

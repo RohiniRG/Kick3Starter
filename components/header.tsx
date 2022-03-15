@@ -1,3 +1,4 @@
+import Router from "next/router";
 import React from "react";
 import { Button, Dropdown, Grid, Menu } from "semantic-ui-react";
 
@@ -10,7 +11,11 @@ const CustomHeader: React.FC = () => {
                     <Menu.Item header as='h1'>Kick3Starter</Menu.Item>
                     <Menu.Menu position="right">
                         <Menu.Item>
-                            <Button positive size='large'>
+                            <Button 
+                                positive 
+                                size='large'
+                                onClick={() => Router.push('/campaigns/new')}
+                            >
                                 <p style={{ 'fontSize': '17px' }}>
                                     Create Campaign
                                 </p>
