@@ -20,10 +20,9 @@ class NewCampaignForm extends Component {
         this.setState({ loading: true, errorMessage: '' });
         const signer: Signer = web3Provider.getSigner();
         const contract: Contract = new ethers.Contract(CampaignList.campaignContractAddress, CampaignFactory.abi, signer);
-        var success: Boolean = false;
         try {
             await contract.createCampaign(this.state.minContributionValue);
-            Router.push('/');
+            await setTimeout(() => {Router.push('/').then(() => window.location.reload())}, 3000);
         }
         catch(err) {
             if (err.message.includes('invalid')) {
@@ -32,9 +31,12 @@ class NewCampaignForm extends Component {
             else if (err.message.includes('denied')) {
                 this.setState({ errorMessage: 'User denied transaction!', });
             }
+            else {
+                this.setState({errorMessage: 'Something went wrong! Make sure you have enough funds or check if your metamask is connected to the right network.'});
+            }
+            this.setState({ loading: false });
+            this.setState({minContributionValue: ''});
         }
-        this.setState({minContributionValue: ''});
-        this.setState({ loading: false });
     }
 
     render() : JSX.Element {
