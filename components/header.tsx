@@ -18,26 +18,30 @@ const CustomHeader: React.FC = () => {
                         </Menu.Item>
                         <Menu.Menu position="right">
                             <Menu.Item>
-                                <Button
-                                    positive
-                                    size='large'
-                                    onClick={() => { Router.push('/campaigns/new') }}
-                                >
-                                    <p style={{ 'fontSize': '17px' }}>
-                                        Create Campaign
-                                    </p>
-                                </Button>
+                                <Link href={'/campaigns/new/'}>
+                                    <Button
+                                        positive
+                                        size='large'
+                                    >
+                                        <p style={{ 'fontSize': '17px' }}>
+                                            Create Campaign
+                                        </p>
+                                    </Button>
+                                </Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Link href={'/#campaigns-view'}>
-                                    <Button color='blue' size='large'>
+                                <Link href={'/#campaigns-view/'}>
+                                    <Button
+                                        color='blue'
+                                        size='large'
+                                    >
                                         <p style={{ 'fontSize': '17px' }}>
                                             Contribute
                                         </p>
                                     </Button>
                                 </Link>
-
                             </Menu.Item>
+
                         </Menu.Menu>
                     </Menu>
                 </Grid.Column>
@@ -49,24 +53,26 @@ const CustomHeader: React.FC = () => {
                         <Menu.Menu position='right'>
                             <Dropdown item simple icon='content'>
                                 <Dropdown.Menu>
-                                    <Link href={'/#campaigns-view'}>
-                                        <Dropdown.Item onClick={() => Router.push('/campaigns/new')}>
+                                    <Link href={'/campaigns/new'}>
+                                        <Dropdown.Item>
                                             <p style={{ 'fontSize': '17px' }}>
-                                                Contribute
+                                                Create Campaign
                                             </p>
                                         </Dropdown.Item>
                                     </Link>
-                                    <Dropdown.Item>
+                                    <Link href={'/#campaigns-view/'}>
+                                    <Dropdown.Item >
                                         <p style={{ 'fontSize': '17px' }}>
-                                            Create Campaign
+                                            Contribute
                                         </p>
                                     </Dropdown.Item>
+                                    </Link>
                                 </Dropdown.Menu>
-                            </Dropdown>
-                        </Menu.Menu>
-                    </Menu>
-                </Grid.Column>
-            </Grid>
+                        </Dropdown>
+                    </Menu.Menu>
+                </Menu>
+            </Grid.Column>
+        </Grid>
         </>
     );
 }

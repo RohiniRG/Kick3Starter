@@ -6,6 +6,7 @@ import { Header, Grid, Image, Button, Icon, Popup, Message } from 'semantic-ui-r
 import 'semantic-ui-css/semantic.min.css';
 import Layout from '../components/layout';
 import Router from "next/router";
+import Link from 'next/link';
 
 class CampaignList extends Component<any> {
     state = {
@@ -65,9 +66,11 @@ class CampaignList extends Component<any> {
                     <br />
                     <br />
                     <br />
-                    <Button basic size="medium">
-                        View details &raquo;
-                    </Button>
+                    <Link href={`/campaigns/${campaignAddress}`}>
+                        <Button basic size="medium">
+                            View details &raquo;
+                        </Button>
+                    </Link>
                 </Grid.Column>
             )
         })
@@ -91,8 +94,8 @@ class CampaignList extends Component<any> {
                             Come, let's change your ideas into reality!
                         </p>
                         <Grid padded centered>
-                            <Button 
-                                positive 
+                            <Button
+                                positive
                                 size='huge'
                                 onClick={() => Router.push('/campaigns/new')}
                             >
