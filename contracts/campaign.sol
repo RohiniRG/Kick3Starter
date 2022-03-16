@@ -81,4 +81,16 @@ contract Campaign {
         payable(currentRequest.receiver).transfer(currentRequest.requiredAmount);
         currentRequest.isComplete = true;
     }
+
+    function getSummary() public view returns (
+        uint, uint, uint, uint, address
+    ) {
+        return (
+            minimumContribution,
+            address(this).balance,
+            currentIndex,
+            totalContributors,
+            campaignManager
+        );
+    }
 }

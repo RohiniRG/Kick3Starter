@@ -15,7 +15,7 @@ class CampaignList extends Component<any> {
         }
     };
 
-    static campaignContractAddress: string = '0x4B36d94BeDAb7db4D7E62DA7589d55AF327530fb';
+    static campaignContractAddress: string = '0x9246966F5504655BeAB11e31d5b26318CDCe6d04';
 
     handleToggleDropdownMenu = () => {
         let newState = Object.assign({}, this.state);
