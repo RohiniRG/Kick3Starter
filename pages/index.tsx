@@ -17,6 +17,14 @@ class CampaignList extends Component<any> {
 
     static campaignContractAddress: string = '0x9246966F5504655BeAB11e31d5b26318CDCe6d04';
 
+
+    static async getInitialProps(): Promise<any> {
+        const contract: Contract = new ethers.Contract(this.campaignContractAddress, CampaignFactory.abi, web3Provider);
+        const campaigns: any[] = await contract.getDeployedCampaigns();
+        console.log(campaigns);
+        return { campaigns };
+    }
+
     handleToggleDropdownMenu = () => {
         let newState = Object.assign({}, this.state);
         if (newState.dropdownMenuStyle.display === "none") {
@@ -27,13 +35,6 @@ class CampaignList extends Component<any> {
 
         this.setState(newState);
     };
-
-    static async getInitialProps(): Promise<any> {
-        const contract: Contract = new ethers.Contract(this.campaignContractAddress, CampaignFactory.abi, web3Provider);
-        const campaigns: any[] = await contract.getDeployedCampaigns();
-        console.log(campaigns);
-        return { campaigns };
-    }
 
     hexShortner = (address): String => {
         return address.substr(0, 5) + " ... " + address.substr(address.length - 5);
@@ -46,7 +47,7 @@ class CampaignList extends Component<any> {
     campaignsCardGroup(): JSX.Element {
         const items: JSX.Element = this.props.campaigns.map((campaignAddress: string, i: number) => {
             return (
-                <Grid.Column mobile={16} tablet={8} computer={4}>
+                <Grid.Column key={i} mobile={16} tablet={8} computer={4}>
                     <Grid.Row>
                         <Image
                             floated='left'
