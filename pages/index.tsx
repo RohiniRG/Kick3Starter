@@ -17,7 +17,6 @@ class CampaignList extends Component<any> {
 
     static campaignContractAddress: string = '0x9246966F5504655BeAB11e31d5b26318CDCe6d04';
 
-
     static async getInitialProps(): Promise<any> {
         const contract: Contract = new ethers.Contract(this.campaignContractAddress, CampaignFactory.abi, web3Provider);
         const campaigns: any[] = await contract.getDeployedCampaigns();
