@@ -80,7 +80,7 @@ class CampaignList extends Component<any> {
     render(): JSX.Element {
         return (
             <Layout>
-                <Grid >
+                <Grid>
                     <Message size="massive">
                         <br />
                         <Header textAlign='center' size="huge" as="h1">

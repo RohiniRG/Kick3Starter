@@ -28,3 +28,9 @@
 .name {
     cursor: pointer;
 }
+
+.card-details {
+    padding: 40px;
+    width: 50%;
+    overflow-wrap: break-word;
+}
