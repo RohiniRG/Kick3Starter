@@ -42,8 +42,6 @@ class CampaignDetails extends Component<CampaignDetailsProps> {
         const balanceEthers = BigNumber.from(this.props.balance);
         return (
             <Layout>
-                {/* <Grid> */}
-                {/* <Grid.Column> */}
                 <Message size="massive">
                     <Header textAlign='center' size="huge" as="h1">
                         Know and contribute!
