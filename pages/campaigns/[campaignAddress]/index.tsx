@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Layout from "../../../components/layout";
-import { Contract, ethers } from "ethers";
+import { BigNumber, Contract, ethers } from "ethers";
 import Campaign from "../../../artifacts/contracts/campaign.sol/Campaign.json";
 import web3Provider from "../../../scripts/web3_provider";
 import { Card, Grid, Header, Message } from "semantic-ui-react";
 import { ParsedUrlQuery } from "querystring";
-import router, { withRouter, NextRouter } from 'next/router'
-import { GetServerSideProps } from "next";
+import ContributeForm from "../../../components/contribute_form";
 
 interface CampaignDetailsProps {
     minContribution: string,
@@ -39,22 +38,26 @@ class CampaignDetails extends Component<CampaignDetailsProps> {
     }
 
     render() {
+        const minContributionEthers = BigNumber.from(this.props.minContribution);
+        const balanceEthers = BigNumber.from(this.props.balance);
         return (
-            < Layout >
+            <Layout>
+                {/* <Grid> */}
+                {/* <Grid.Column> */}
+                <Message size="massive">
+                    <Header textAlign='center' size="huge" as="h1">
+                        Know and contribute!
+                    </Header>
+                    <p style={{ 'textAlign': 'center' }}>
+                        Take a look at the details of the campaign your desire to contribute to!
+                        Your contribution can really bring a change to these projects and will help them get on road.
+                    </p>
+                    <p style={{ 'textAlign': 'center' }}>
+                        Let's make a difference together!
+                    </p>
+                </Message>
                 <Grid>
-                    <Grid.Column>
-                        <Message size="massive">
-                            <Header textAlign='center' size="huge" as="h1">
-                                Know and contribute!
-                            </Header>
-                            <p style={{ 'textAlign': 'center' }}>
-                                Take a look at the details of the campaign your desire to contribute to!
-                                Your contribution can really bring a change to these projects and will help them get on road.
-                            </p>
-                            <p style={{ 'textAlign': 'center' }}>
-                                Let's make a difference together!
-                            </p>
-                        </Message>
+                    <Grid.Column width={10}>
                         <div className="card-details">
                             <Card fluid>
                                 <Card.Content>
@@ -68,7 +71,7 @@ class CampaignDetails extends Component<CampaignDetailsProps> {
                             </Card>
                             <Card fluid>
                                 <Card.Content>
-                                    <Card.Header>{this.props.minContribution}</Card.Header>
+                                    <Card.Header>{ethers.utils.formatUnits(minContributionEthers, 'ether').toString()} ETH</Card.Header>
                                     <Card.Meta>Minimum contribution</Card.Meta>
                                     <Card.Description>
                                         The minimum amount of contribution this campaign expects to consider you as a contributor.
@@ -77,7 +80,7 @@ class CampaignDetails extends Component<CampaignDetailsProps> {
                             </Card>
                             <Card fluid>
                                 <Card.Content>
-                                    <Card.Header>{this.props.balance}</Card.Header>
+                                    <Card.Header>{ethers.utils.formatUnits(balanceEthers, 'ether')} ETH</Card.Header>
                                     <Card.Meta>Collection</Card.Meta>
                                     <Card.Description>
                                         The funds collected by the campaign so far. It is representation of the collection of contributions put forth by all the
@@ -103,6 +106,11 @@ class CampaignDetails extends Component<CampaignDetailsProps> {
                                     </Card.Description>
                                 </Card.Content>
                             </Card>
+                        </div>
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                        <div className="card-details">
+                            <ContributeForm address={this.props.address}/>
                         </div>
                     </Grid.Column>
                 </Grid>
